@@ -130,7 +130,7 @@ desired_cities = (
     ('Detroit', 'MI'),
     ('Missoula', 'MT'))
 
-desired_states = ('NY', 'GA', 'IL', 'MI', 'MT')
+desired_states = ('WA', 'NY', 'GA', 'IL', 'MI', 'MT')
 
 #for city, state in desired_cities:
 for state in desired_states:
