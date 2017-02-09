@@ -57,7 +57,7 @@ insertions = {
     """,
     "latest_contact_info_geo_update": """
         UPDATE OR IGNORE latest_contact_info
-        SET (lon, lat) = (?, ?) WHERE ein = ?;
+        SET lon = ?, lat = ? WHERE ein = ?;
     """,
     "tag": "INSERT INTO tag (name) VALUES(?)",
     "tag_lookup": """

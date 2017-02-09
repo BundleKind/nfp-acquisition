@@ -78,9 +78,9 @@ def row_to_lon_lat(row):
 for fname in city_paths:
     with open(fname) as infile:
         rdr = csv.DictReader(infile)
-        c.executemany(query, [row_to_lon_lat(row) for row in rdr])
+        for row in rdr:
+            c.execute(query, row_to_lon_lat(row))
             
-
 conn.commit()
 
 
