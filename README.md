@@ -39,7 +39,8 @@ This repository provides code to acquire a current list of nonprofits and their 
   We just need to pipe the output from the form 990/990N data into the
   mapper and it will select the appropriate fields and then send them along
   to the geocoder query.<br/>
-  Use `run_geocoder_mapper.sh` (sorry Windows people) to automate this.
+  Use `run_geocoder_mapper.sh` (sorry Windows people, I didn't check whether
+  it works in powershell) to automate this.
 
 4. Try and group nonprofits by their mission.
    - There is no mission information in the 990N data, so we can only
@@ -47,6 +48,14 @@ This repository provides code to acquire a current list of nonprofits and their 
    - There are three fields in the 990 data that may be helpful.
    Pull them, cluster, and see what we get.
 
+  This was done in the notebook `cluster_missions.ipynb`, which output the
+  mappings as individual JSON-formatted files in _data/tagged_eins/_.
+  There is also and a mapping of all terms to their tags in _data/tagged_eins/all_tags.yml_.
+  Edit the _all_tags.yml_ file and run `retag_everything.py` to
+  retag everything.
+
+5. Combine the tax data, location data, and tag data into a single SQLite
+   database.  The script is: `create_and_populate_database.py`
 
 
 
