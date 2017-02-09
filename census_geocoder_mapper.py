@@ -166,7 +166,7 @@ def make_onerow_query(
 def map():
     column_names = (
         'id', 'orig_address', 'match_or_not', 'exact_or_not', 'matched_address',
-        'lat_lon', 'tiger_line_id', 'side_of_street',
+        'lon_lat', 'tiger_line_id', 'side_of_street',
         'state_fips', 'county_fips', 'census_tract', 'census_block'
     )
     lines = []
