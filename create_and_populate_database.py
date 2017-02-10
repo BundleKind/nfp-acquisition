@@ -42,19 +42,19 @@ for fname in city_paths:
     c.executemany(
         queries['year_terminated'],
         [(row.get('EIN'), int(row.get('TaxYr', 2015))) for row in dataset
-            if row.get('Is Terminated') and row.get('EIN')
+            if row.get('Is Terminated') == 'T' and row.get('EIN')
         ]
     )
     c.executemany(
         queries['tax_return'],
         [process_tax_return(row) for row in dataset
-            if not row['Is Terminated']
+            if row.get('Is Terminated') != 'T'
         ]
     )
     c.executemany(
         queries['latest_contact_info'],
         [[row.get(c, '') for c in cols['latest_contact_info']] for row in dataset
-            if not row['Is Terminated']
+            if row.get('Is Terminated') != 'T'
         ]
     )
 
