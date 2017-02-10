@@ -70,3 +70,43 @@ CREATE TABLE IF NOT EXISTS tag_lookup (
   FOREIGN KEY (ein) REFERENCES nfp(ein),
   UNIQUE (tag_id, ein) ON CONFLICT REPLACE
 );
+
+
+CREATE VIEW IF NOT EXISTS ein_to_tag AS
+  SELECT ein, tag.name AS tag
+  FROM tag_lookup AS tl
+  JOIN tag ON tl.tag_id = tag.id;
+
+CREATE VIEW IF NOT EXISTS ein_to_joined_tags AS
+  SELECT ein, group_concat(tag) AS joined_tags
+  FROM ein_to_tag
+  GROUP BY ein;
+
+CREATE VIEW IF NOT EXISTS combined_data AS
+  SELECT 
+    tr.*,
+    nfp.name,
+    nfp.mission,
+    nfp.activity,
+    nfp.description,
+    nfp.doing_business_as1 AS dba,
+    etjt.joined_tags,
+    nfp.is_501c3,
+    nfp.year_formed,
+    yt.year AS year_terminated,
+    lci.url,
+    lci.phone_num,
+    lci.business_addr_city AS city,
+    lci.business_addr_state AS state,
+    lci.business_addr_zip AS zip,
+    lci.principal_officer,
+    lci.principal_officer_city,
+    lci.principal_officer_state,
+    lci.principal_officer_zip,
+    lci.lon,
+    lci.lat
+FROM nfp
+LEFT JOIN year_terminated AS yt ON nfp.ein = yt.ein
+LEFT JOIN tax_return AS tr ON nfp.ein = tr.ein
+LEFT JOIN latest_contact_info AS lci ON nfp.ein = lci.ein
+LEFT JOIN ein_to_joined_tags AS etjt ON nfp.ein = etjt.ein;
