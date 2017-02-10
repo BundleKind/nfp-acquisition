@@ -62,7 +62,7 @@ insertions = {
     "tag": "INSERT INTO tag (name) VALUES(?)",
     "tag_lookup": """
         INSERT INTO tag_lookup (tag_id, ein)
-        SELECT (id, ?) FROM tag WHERE tag.name = ?
+        SELECT id, ? FROM tag WHERE tag.name = ?
     """
   },
   "columns": {

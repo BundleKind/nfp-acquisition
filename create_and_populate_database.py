@@ -88,11 +88,11 @@ conn.commit()
 print("Loading the tags.")
 query = queries['tag']
 all_tags = yaml.load(open(os.path.join('data', 'tagged_eins', 'all_tags.yml')).read())
-c.executemany(query, all_tags.keys())
+c.executemany(query, [(k,) for k in all_tags.keys()])
 conn.commit()
 
 query = queries['tag_lookup']
-city_paths = glob.glob(os.path.join('data', 'tagged_eins', '*', '*'))
+city_paths = glob.glob(os.path.join('data', 'tagged_eins', '*', '*.json'))
 for fname in city_paths:
     data = json.loads(open(fname).read())
     del data['EIN']  # TODO: fix the reason this exists...apparently tagged header too
