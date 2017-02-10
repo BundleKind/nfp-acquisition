@@ -97,6 +97,8 @@ for fname in city_paths:
     data = json.loads(open(fname).read())
     del data['EIN']  # TODO: fix the reason this exists...apparently tagged header too
     for ein, tags in data.items():
-        c.executemany(query, ((ein, t) for t in tags))
+        for t in tags:
+            c.execute(query, (ein, t))
 
+conn.commit()
 print("Done. database is in {}".format(DBNAME))
