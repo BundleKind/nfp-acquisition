@@ -55,7 +55,23 @@ This repository provides code to acquire a current list of nonprofits and their 
   retag everything.
 
 5. Combine the tax data, location data, and tag data into a single SQLite
-   database.  The script is: `create_and_populate_database.py`
+   database.
+
+    * The script is: `create_and_populate_database.py`
+    * The database is: `nonprofits.db`
+      (stored using [GitHub Large File Storage][git_lfs] if that matters)
+
+
+## Database
+
+The database contains the following tables, with primary and foreign keys designated with
+'(p)' and '(f)'.
+
+|  `nfp`  | `latest_contact_info` | `tax_return` | `year_terminated` |  `tag` | `tag_lookup` |
+| ------- | --------------------- | ------------ | ----------------- | ------ | ------------ |
+| ein (p) | ein (f)               | ein (f)      | ein               | id (p) |  tag_id (f)  |
+| name    | address + phone cols  | tax_year     | year              | name   | ein (f)      |
+| Doing Business as (dba) name | (for both business and primary officer) | various income + staffing data | | | 
 
 
 
@@ -72,3 +88,4 @@ This repository provides code to acquire a current list of nonprofits and their 
 
 
 [usgeo]: https://geocoding.geo.census.gov/geocoder/geographies/addressbatch
+[git_lfs]: git://git-lfs.github.com/ 
